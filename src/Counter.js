@@ -41,7 +41,7 @@ class Counter extends Component {
         this.setState({ counter })
     }
 
-
+// this is dummy
     render() {
         const {handleIncrement,handleDecrement,handleDelete,handleReset}=this
 

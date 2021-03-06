@@ -33,7 +33,7 @@ class Counter extends Component {
         this.setState({ counter })
     }
     handleReset = () => {
-        // console.log("handle reset clicked", deleteId)
+        console.log("handle reset clicked", deleteId)
         const counter = this.state.counter.map(c => {
             c.value = 0
             return c;

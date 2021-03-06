@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import App from "./App"
+import Navbar from './Navbar'
+import Counter from './Counter';
 
-class Counter extends Component {
+class Main extends Component {
     state = {
         counter: [
             { id: 1, value: 4 },
@@ -22,10 +23,10 @@ class Counter extends Component {
 
     handleDecrement = app => {
         const counter = [...this.state.counter]
-        const index=counter.indexOf(app)
-        counter[index]={...app} 
+        const index = counter.indexOf(app)
+        counter[index] = { ...app }
         counter[index].value--;
-        this.setState({counter});
+        this.setState({ counter });
     }
 
     handleDelete = deleteId => {
@@ -33,7 +34,6 @@ class Counter extends Component {
         this.setState({ counter })
     }
     handleReset = () => {
-        // console.log("handle reset clicked", deleteId)
         const counter = this.state.counter.map(c => {
             c.value = 0
             return c;
@@ -41,24 +41,21 @@ class Counter extends Component {
         this.setState({ counter })
     }
 
-
     render() {
-        const { onIncrement, onDecrement, onDelete, onReset } = this.props
-
+        const { handleDecrement, handleDelete, handleIncrement, handleReset } = this
         return (
-            <div>
-                <button className="btn btn-primary" onClick={onReset}>Reset</button>
-
-                {this.props.counter.map(counter => (
-                    <App key={counter.id}
-                        onIncrement={onIncrement}
-                        onDecrement={onDecrement}
-                        onDelete={onDelete}
-                        counter={counter} />
-                ))}
-
-            </div>
+            <React.Fragment>
+                <Navbar totalCounter={this.state.counter.filter(c => c.value > 0).length} />
+                <main className="container">
+                    <Counter
+                        counter={this.state.counter}
+                        onIncrement={handleIncrement}
+                        onDecrement={handleDecrement}
+                        onReset={handleReset}
+                        onDelete={handleDelete} />
+                </main>
+            </React.Fragment>
         )
     }
 }
-export default Counter;
+export default Main;
